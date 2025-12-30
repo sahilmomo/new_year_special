@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mama ❤️</title>
+<meta charset="UTF-8">
+<style>
+body{
+  margin:0;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  font-family:Segoe UI;
+  color:white;
+  text-align:center;
+}
+.card{
+  background:rgba(0,0,0,.45);
+  padding:20px;
+  border-radius:25px;
+  width:90%;
+  max-width:420px;
+  margin:30px auto;
+}
+button,select{
+  padding:8px 15px;
+  border:none;
+  border-radius:20px;
+  margin:5px;
+}
+input[type=range]{width:120px;}
+
+#typing{
+  white-space: pre-line;
+  min-height: 220px;
+  font-size: 16px;
+  margin-top: 15px;
+}
+
+#popup{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,.8);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+#popup div{
+  background:#ff4d6d;
+  padding:30px;
+  border-radius:25px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎶 Music -->
+<audio id="music"></audio>
+
+<div class="card">
+<h2>Happy New Year Mama ❤️</h2>
+
+<!-- Music controls -->
+<button onclick="toggleMusic()">▶️ / ⏸</button>
+
+<select onchange="changeSong(this.value)">
+  <option value="all i dream.mpeg">❤️ Song1</option>
+  <option value="song2.mpeg">💖 Song2</option>
+  <option value="song3.mpeg">😘 Song3</option>
+  <option value="song4.mpeg">😍 Song4</option>
+  <option value="song5.mpeg">🥰 Song5</option>
+</select>
+
+<input type="range" min="0" max="1" step="0.01"
+onchange="setVolume(this.value)">
+
+<!-- ❤️ Auto Typing Message -->
+<p id="typing"></p>
+
+<a href="gallery.html">📸 Gallery</a> |
+<a href="memories.html">📝 Memories</a>
+
+<p>— Sahil Pal 🐶❤️</p>
+</div>
+
+<!-- 🎆 Surprise Popup -->
+<div id="popup">
+  <div>
+    <h2>🎆 Surprise Mama 🎆</h2>
+    <p>I love you mamiiii 💋</p>
+    <button onclick="closePop()">Close ❤️</button>
+  </div>
+</div>
+
+<script>
+/* 🎶 Music */
+const music=document.getElementById("music");
+const defaultSong="all i dream.mpeg";
+
+/* ❤️ Auto Typing Love Message — EXACT TEXT */
+const message =
+"The feelings \n" +
+"I have for you mama\n" +
+"Fill me with so much bliss...\n\n" +
+"I'm so glad that you choose me \n" +
+"To love,\n" +
+"To cares and\n" +
+"Kiss\n\n" +
+"Happy New Year Mamiiiii <3..\n" +
+"I love you mami\n" +
+"I love you dhanaaaaaa\n" +
+"Mo sunnna mo gelhi ummaa 😘\n" +
+"Onee new year special kissee plss..\n\n" +
+"Thank you for being with mee ❤️";
+
+let index = 0;
+const typingEl = document.getElementById("typing");
+
+function typeText(){
+  if(index < message.length){
+    typingEl.textContent += message.charAt(index);
+    index++;
+    setTimeout(typeText, 60);
+  }
+}
+
+/* restore state */
+window.onload=()=>{
+  music.src=localStorage.song||defaultSong;
+  music.currentTime=localStorage.time||0;
+  music.volume=localStorage.vol||0.7;
+  if(localStorage.play==="yes") music.play();
+
+  typeText(); // start typing
+
+  setTimeout(()=>popup.style.display="flex",5000);
+};
+
+function toggleMusic(){
+  if(music.paused){
+    music.play();localStorage.play="yes";
+  }else{
+    music.pause();localStorage.play="no";
+  }
+}
+function changeSong(s){
+  music.src=s;music.play();
+  localStorage.song=s;localStorage.play="yes";
+}
+function setVolume(v){
+  music.volume=v;localStorage.vol=v;
+}
+setInterval(()=>{
+  if(!music.paused) localStorage.time=music.currentTime;
+},1000);
+
+function closePop(){popup.style.display="none";}
+</script>
+
+</body>
+</html>

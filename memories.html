@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Our Memories ❤️</title>
+<meta charset="UTF-8">
+<style>
+body{
+margin:0;
+padding:20px;
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+font-family:Segoe UI;
+color:white;
+overflow-y:auto;
+}
+
+.box{
+background:rgba(0,0,0,.45);
+padding:25px;
+border-radius:25px;
+max-width:750px;
+margin:auto;
+line-height:1.7;
+font-size:17px;
+}
+
+h2{text-align:center;}
+
+button{
+padding:8px 18px;
+border:none;
+border-radius:20px;
+background:#ff4d6d;
+color:white;
+margin-bottom:15px;
+cursor:pointer;
+}
+
+a{
+color:white;
+font-weight:bold;
+text-decoration:none;
+}
+
+#text{
+max-height:60vh;
+overflow-y:auto;
+padding-right:10px;
+}
+
+/* Midnight animation */
+.star{
+position:absolute;
+width:4px;
+height:4px;
+background:white;
+border-radius:50%;
+animation:fall 3s linear infinite;
+}
+
+@keyframes fall{
+0%{top:-10px;opacity:1;}
+100%{top:100%;opacity:0;}
+}
+
+#midnight{
+display:none;
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,.85);
+justify-content:center;
+align-items:center;
+z-index:5;
+}
+
+#midnight div{
+background:#ff4d6d;
+padding:30px;
+border-radius:25px;
+text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music"></audio>
+
+<div class="box">
+<h2>💖 Our Memories 💖</h2>
+
+<button onclick="toggleMusic()">▶️ / ⏸ Play / Pause Song</button>
+
+<div id="text"></div>
+
+<br>
+<a href="index.html">⬅ Back to Home</a>
+</div>
+
+<div id="midnight">
+<div>
+<h2>🎆 Happy New Year Mama 🎆</h2>
+<p>Another year, still you & me ❤️</p>
+<button onclick="closeMid()">❤️</button>
+</div>
+</div>
+
+<script>
+/* 🎶 Music */
+const music=document.getElementById("music");
+window.onload=()=>{
+music.src=localStorage.song;
+music.currentTime=localStorage.time||0;
+music.volume=localStorage.vol||0.7;
+if(localStorage.play==="yes") music.play();
+startTyping();
+checkMidnight();
+};
+
+function toggleMusic(){
+music.paused?(music.play(),localStorage.play="yes")
+:(music.pause(),localStorage.play="no");
+}
+
+/* ✍️ Auto typing */
+const message = `
+• Main tujhe pehli baar apne engineering college mein mila tha.
+Pehle class mein dekha tha, par tu sabse alag thi.
+
+• Dussehra vacation se ek din pehle graphics lab mein baat karne ki koshish ki thi pr tu ignore kar gayi thi.,
+phir Instagram se kismat ne milwa diya.
+
+• Teri message —
+“Mujhe text mein baat karna pasand nahi,
+baat karni ho to call kar dena.”
+
+• Diwali ka woh call,
+aur humara aur kareeb aa jaana.
+
+• Pushpa movie —
+movie kam aur tu zyada yaad reh gaya.
+
+• 3 September —
+meri pehli kiss,
+haath per kaanp rahe the,heart tez dhadak raha tha.
+Par tu itni natural thi,
+tu bilkul calm thi.
+
+• Tum mujhe “kutta” bulati hai bahut acha lagta hai,teri kutta bulana meri addat ban gayi hai.
+aur main fakr se maanta hoon 🐶❤️
+
+Mama…
+Main perfect nahi hoon,
+par tumhe khush rakhne ki har koshish karunga.
+
+Tumhari har muskaan meri zimmedari hai,
+tumhara har darr mera.
+
+Tum apni life me jo chaaho karo,
+jahan chaaho jao,
+par yaad rakhna —
+ye pyaar kutta hamesha tumhara hi rahega.
+
+I don’t promise a perfect life,
+but I promise a loyal heart.
+
+Will you always stay with me, Mama? 💍❤️
+`;
+
+let i=0;
+function startTyping(){
+if(i < message.length){
+text.innerHTML += message[i] === "\n" ? "<br>" : message[i];
+text.scrollTop = text.scrollHeight;
+i++;
+setTimeout(startTyping,40);
+}
+}
+
+/* 🌙 Midnight */
+function checkMidnight(){
+setInterval(createStar,300);
+}
+
+function createStar(){
+let s=document.createElement("div");
+s.className="star";
+s.style.left=Math.random()*100+"%";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),3000);
+}
+
+function closeMid(){
+midnight.style.display="none";
+}
+</script>
+
+</body>
+</html>
